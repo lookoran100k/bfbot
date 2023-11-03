@@ -1,44 +1,41 @@
 import os
 import sys
-import signal
-sys.path.append('../../../')
 from dotenv import load_dotenv
-
 # Load your environment variables
-load_dotenv('keys3.env')
-
+load_dotenv('keys3.env')  # ovo cu ti dati 
+sys.path.append('../../../')
 from bfxapi import Client
 from bfxapi.constants import WS_HOST, REST_HOST
 
 API_KEY=os.getenv("BFX_KEY")
 API_SECRET=os.getenv("BFX_SECRET")
 
+# Checking wallet balances requires private hosts
 bfx = Client(
   API_KEY=API_KEY,
   API_SECRET=API_SECRET,
   logLevel='INFO',
   ws_host=WS_HOST,
   rest_host=REST_HOST,
-  #dead_man_switch=False, # <-- kill all orders if this connection drops
-  channel_filter=['all'] # <-- only receive wallet updates
-  #channel_filter=['wallet'] # <-- only receive wallet updates
+  #channel_filter=['wallet']  #Ako ovo otkomentiram onda dobijam samo wallet update. 
+  
 )
+#ovo sve skupa ispod je nepotrebno , ali ako komentiram Chanel Filter onda dobijam 
+# wallet snapshot sa ovim ispod na jedan ili drugi nacin. zapravo ne znam. brljam
+""" 
+#prvi nacin
+@bfx.ws.on('wallet_snapshot')
+def log_snapshot(wallets):
+  for wallet in wallets:
+    print (wallet)  """
 
-# Ovdje sam thio da kad stisnem CTRL-C da prikine program, ali neće. za sad gasim treminal pa pokrecem opet
-def exit_program(signal, frame):
-    print("Exiting the program gracefully...")
-    bfx.ws.stop()
-    sys.exit(0)
+#drugi nacin  
+  # or bfx.ws.wallets.get_wallets()   - ovo radi isto ko ovo gore
+# bfx.ws.wallets.get_wallets()
 
-signal.signal(signal.SIGINT, exit_program)
 
 @bfx.ws.on('error')
 def log_error(msg):
   print ("Error: {}".format(msg))
-
-@bfx.ws.on('authenticated')
-async def Acount(auth_message):
-  print ("Authenticated!!")
-
 
 bfx.ws.run()
