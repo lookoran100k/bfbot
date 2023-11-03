@@ -2,7 +2,7 @@ import os
 import sys
 from dotenv import load_dotenv
 # Load your environment variables
-load_dotenv('keys3.env')  # ovo cu ti dati 
+load_dotenv('keys3.env')  # ovo cu ti poslati 
 sys.path.append('../../../')
 from bfxapi import Client
 from bfxapi.constants import WS_HOST, REST_HOST
