@@ -24,6 +24,7 @@ bfx = Client(
   #channel_filter=['wallet'] # <-- only receive wallet updates
 )
 
+# Ovdje sam thio da kad stisnem CTRL-C da prikine program, ali neće. za sad gasim treminal pa pokrecem opet
 def exit_program(signal, frame):
     print("Exiting the program gracefully...")
     bfx.ws.stop()
