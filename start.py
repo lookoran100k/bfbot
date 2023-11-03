@@ -20,7 +20,8 @@ bfx = Client(
   ws_host=WS_HOST,
   rest_host=REST_HOST,
   #dead_man_switch=False, # <-- kill all orders if this connection drops
-  channel_filter=['wallet','order','position'] # <-- only receive wallet updates
+  channel_filter=['all'] # <-- only receive wallet updates
+  #channel_filter=['wallet'] # <-- only receive wallet updates
 )
 
 def exit_program(signal, frame):
