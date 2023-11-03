@@ -2,7 +2,7 @@ import os
 import sys
 from dotenv import load_dotenv
 # Load your environment variables
-load_dotenv('keys3.env')  # ovo cu ti poslati 
+load_dotenv('keys.env')  # ovo cu ti poslati 
 sys.path.append('../../../')
 from bfxapi import Client
 from bfxapi.constants import WS_HOST, REST_HOST
@@ -31,7 +31,7 @@ def log_snapshot(wallets):
 
 #drugi nacin  
   # or bfx.ws.wallets.get_wallets()   - ovo radi isto ko ovo gore
-# bfx.ws.wallets.get_wallets()
+#bfx.ws.wallets.get_wallets()
 
 
 @bfx.ws.on('error')
